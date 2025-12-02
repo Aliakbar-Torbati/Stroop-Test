@@ -1,50 +1,38 @@
-# React + TypeScript + Vite
+# Stroop Game (React + TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a small Stroop-effect game implemented with **React**, **TypeScript**, and **Vite**. It demonstrates how to build an interactive cognitive task in a strongly typed React environment.
 
-Currently, two official plugins are available:
+## What is the Stroop Game?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Stroop effect is a classic psychological phenomenon: people are slower or more error-prone when the meaning of a word and its color are in conflict (e.g. the word “Red” written in blue ink).
 
-## Expanding the ESLint configuration
+In this implementation:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- A set of **color options** is displayed.
+- Each option consists of a **text label** (e.g. `"Red"`) and a **font color** (e.g. `blue`).
+- Exactly **one option is “incorrect”**: the text and the color do **not** match.
+- Your task as a player is to **identify and click the incorrect option**.
+- The game uses a **score** and a **countdown timer** (initialized to 10 seconds) to track performance.
 
-- Configure the top-level `parserOptions` property like this:
+This creates a simple but effective Stroop-style attention and reaction task.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Tech Stack & Architecture
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Framework**: React 18  
+- **Language**: TypeScript  
+- **Bundler/Dev Server**: Vite  
+- **Styling**: Plain CSS (`App.css`, `index.css`)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Key TypeScript/React aspects:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- A `ColorOption` type (with `text` and `color` fields) describes each game option.
+- Component state is **fully typed**, e.g. `useState<ColorOption[]>`, `useState<number>`, `useState<boolean>`.
+- The game logic maintains:
+  - `colors`: the current list of displayed options.
+  - `incorrectOption`: the special mismatching option.
+  - `score`: the current player score.
+  - `gameStarted`: whether the game is running.
+  - `timer`: remaining time for the current run.
+- Color options are **shuffled** to randomize each round.
+
+
